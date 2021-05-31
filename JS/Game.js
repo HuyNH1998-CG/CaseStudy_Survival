@@ -53,12 +53,14 @@ function showHighScores() {
         .map((score) => `<li>${score.score} - ${score.name}`)
         .join('')
 }
+
 //
 
 //Randomizer
 function random(min, max) {
     return (Math.random() * (max - min)) + min
 }
+
 //
 
 //Collision Check (Circle Type)
@@ -123,7 +125,7 @@ function spawn() {
     enemies.push(new enemy(players))
 }
 
-function giveMedicine(){
+function giveMedicine() {
     medicines.push(new medicine(ctx))
 }
 
@@ -131,6 +133,7 @@ function timerDecrease() {
     timer--
     return timer
 }
+
 //
 
 
@@ -157,6 +160,9 @@ function main() {
     document.getElementById("continue").style.display = "none"
     document.getElementById("playAgain").style.display = "none"
     document.getElementById("scorer").style.display = "none";
+    document.getElementById("Easy").style.display = "none";
+    document.getElementById("Normal").style.display = "none";
+    document.getElementById("Hard").style.display = "none";
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle = "#ac561c"
@@ -206,12 +212,13 @@ function display() {
     document.getElementById("time").innerHTML = `Time left: ${timer}`
     document.getElementById("time").style.display = "inline"
 }
+
 //
 
 //Messages and Story
 function welcome() {
     document.getElementById("Start").style.display = "none";
-    document.getElementById("Next").style.display = "inline"
+    document.getElementById("Next").style.display = "inline";
     document.getElementById("Next3").style.display = "none";
     document.getElementById("Next2").style.display = "none";
     document.getElementById("scorer").style.display = "none";
@@ -220,9 +227,12 @@ function welcome() {
     document.getElementById("playAgain").style.display = "none";
     document.getElementById("score").style.display = "none"
     document.getElementById("health").style.display = "none"
-    document.getElementById("time").style.display = "none" ;
-    document.getElementById("highScores").style.display = "none"
-    ctx.clearRect(0,0,canvas.width,canvas.height)
+    document.getElementById("time").style.display = "none";
+    document.getElementById("highScores").style.display = "none";
+    document.getElementById("Easy").style.display = "none";
+    document.getElementById("Normal").style.display = "none";
+    document.getElementById("Hard").style.display = "none";
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     ctx.font = "50px Arial"
     ctx.textAlign = "center"
@@ -262,6 +272,9 @@ function next2() {
 function next3() {
     document.getElementById("Next3").style.display = "none";
     document.getElementById("Start").style.display = "inline";
+    document.getElementById("Easy").style.display = "inline";
+    document.getElementById("Normal").style.display = "inline";
+    document.getElementById("Hard").style.display = "inline";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath()
     ctx.font = "60px Arial"
@@ -321,7 +334,7 @@ function Victory() {
     ctx.font = "50px Arial";
     ctx.fillStyle = "#FFD700"
     ctx.textAlign = "center"
-    ctx.fillText(`Impressed, you survived 1 minute`, canvas.width / 2, 100)
+    ctx.fillText(`Impressed, you have survived`, canvas.width / 2, 100)
     ctx.fillText(`The Wizard said`, canvas.width / 2, 200)
     ctx.fillText(`Now I have to let you out don't I`, canvas.width / 2, 300)
     ctx.fillText(`But no matter, you will never escape from me`, canvas.width / 2, 400)
@@ -340,7 +353,7 @@ function Victory() {
 //Gameplay continue and Reset
 function reset() {
     enemies = []
-    timer = 10
+    timer = 60
     players.x = 500
     players.y = 500
     document.getElementById("continue").style.display = "none"
@@ -354,14 +367,28 @@ function playAgain() {
     score = 0
     players.health = 50
     players.alive = true
-    timer = 10
+    timer = 60
     players.x = 500
     players.y = 500
     document.getElementById("playAgain").style.display = "none"
     welcome()
 }
+
 //
 
+//Difficulty
+function easyMode() {
+    players.health = 100;
+}
+
+function normalMode(){
+    players.health = 50;
+}
+
+function hardMode() {
+    players.health = 25;
+}
+//
 welcome()
 
 
