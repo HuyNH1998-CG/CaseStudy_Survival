@@ -30,7 +30,8 @@ function checkHighScore(scores) {
         showHighScores()
         score = 0
         document.getElementById("playAgain").style.display = "inline";
-        document.getElementById("continue").style.display = "none"
+        document.getElementById("continue").style.display = "none";
+        display()
     }
     return score
 }
