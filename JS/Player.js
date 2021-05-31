@@ -3,6 +3,7 @@ class Player {
     alive = true;
     hurtSound = new Audio("./Sound/Hurt.wav")
     dieSound = new Audio("./Sound/Die.wav")
+
     constructor(x, y) {
         this.health = 50;
         this.speed = 6;
@@ -32,15 +33,15 @@ class Player {
     }
 
     collide(enemies) {
-            for (const enemy of enemies) {
-                let dist = distance(enemy.x, enemy.y, this.x, this.y)
-                if (dist <= enemy.radius/2) {
-                    this.health--
+        for (const enemy of enemies) {
+            let dist = distance(enemy.x, enemy.y, this.x, this.y)
+            if (dist <= enemy.radius / 2) {
+                this.health--
 
-                    enemies = enemies.splice(enemies.indexOf(enemy), 1)
-                    this.hurtSound.play()
-                }
+                enemies = enemies.splice(enemies.indexOf(enemy), 1)
+                this.hurtSound.play()
             }
+        }
     }
 
     render(ctx) {
@@ -48,18 +49,18 @@ class Player {
 
 
         ctx.translate(this.x, this.y)
-        ctx.rotate(Math.PI *2)
+        ctx.rotate(Math.PI * 2)
         ctx.rotate(this.angle);
         ctx.translate(-this.x, -this.y)
         ctx.beginPath()
-        ctx.drawImage(this.img, this.x-25,this.y-25,50,50)
+        ctx.drawImage(this.img, this.x - 25, this.y - 25, 50, 50)
         ctx.fill();
         ctx.closePath()
         ctx.restore()
 
     }
 
- move() {
+    move() {
         if (keyPressed("w") && this.y - this.speed - this.radius > 0) {
             this.y -= this.speed
         }

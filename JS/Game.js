@@ -1,3 +1,4 @@
+//Variables
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d")
 let players = new Player(500, 350)
@@ -12,11 +13,13 @@ let HighScores = 'highScores'
 let score = 0
 let highScoreString = localStorage.getItem(HighScores);
 let highScores = JSON.parse(highScoreString) ?? [];
-let timer = 10
+let timer = 60
 let winSound = new Audio("./Sound/Won.mp3")
 let spawner;
 let timeCounter;
+//
 
+//Leaderboard
 function checkHighScore(scores) {
     let highScores = JSON.parse(localStorage.getItem(HighScores)) ?? [];
     let lowestScore = highScores[numberOfHighScores - 1]?.score ?? 0;
@@ -47,18 +50,23 @@ function showHighScores() {
         .map((score) => `<li>${score.score} - ${score.name}`)
         .join('')
 }
+//
 
-
+//Randomizer
 function random(min, max) {
     return (Math.random() * (max - min)) + min
 }
+//
 
+//Collision Check (Circle Type)
 const distance = (x1, y1, x2, y2) => {
     let xx = Math.pow((x2 - x1), 2),
         yy = Math.pow((y2 - y1), 2);
     return Math.sqrt(xx + yy)
 }
+//
 
+//Key Listener
 window.addEventListener("keydown", event => {
     let {key} = event
     if (!keyMap.includes(key)) {
@@ -76,8 +84,10 @@ window.addEventListener("keyup", event => {
 let keyPressed = function (key) {
     return keyMap.includes(key)
 }
+//
 
-function startAnimation() {
+//Loop
+function starter() {
     interval = 1000 / fps
     then = Date.now();
     start = then
@@ -100,10 +110,23 @@ function animation(loop) {
     spawner = setInterval(spawn, 1000)
     timeCounter = setInterval(timerDecrease, 1000)
     update = loop;
-    startAnimation()
+    starter()
 }
 
+function spawn() {
+    enemies.push(new enemy(players))
+    enemies.push(new enemy(players))
+    enemies.push(new enemy(players))
+}
 
+function timerDecrease() {
+    timer--
+    return timer
+}
+//
+
+
+//Pointer relate
 function pointer(canvas, event) {
     let rect = canvas.getBoundingClientRect()
     let x = event.clientX - rect.left
@@ -111,7 +134,17 @@ function pointer(canvas, event) {
     return {x, y}
 }
 
-function active() {
+document.body.addEventListener("click", () => {
+    weapons.push(new weapon(players.x, players.y, players.angle))
+})
+document.body.addEventListener("mousemove", (event) => {
+    let mouse = pointer(canvas, event)
+    players.rotate(mouse)
+})
+//
+
+//Gameplay Main
+function main() {
     document.getElementById("Start").style.display = "none"
     document.getElementById("continue").style.display = "none"
     document.getElementById("playAgain").style.display = "none"
@@ -153,32 +186,29 @@ function active() {
 
 function display() {
     document.getElementById("score").innerHTML = `Score is: ${score}`
+    document.getElementById("score").style.display = "inline"
     document.getElementById("health").innerHTML = `Health ${players.health}`
+    document.getElementById("health").style.display = "inline"
     document.getElementById("time").innerHTML = `Time left: ${timer}`
+    document.getElementById("time").style.display = "inline"
 }
+//
 
-function spawn() {
-    enemies.push(new enemy(players))
-    enemies.push(new enemy(players))
-    enemies.push(new enemy(players))
-}
-
-document.body.addEventListener("click", () => {
-    weapons.push(new weapon(players.x, players.y, players.angle))
-})
-document.body.addEventListener("mousemove", (event) => {
-    let mouse = pointer(canvas, event)
-    players.rotate(mouse)
-})
-
+//Messages and Story
 function welcome() {
-    document.getElementById("Start").style.display = "none"
+    document.getElementById("Start").style.display = "none";
+    document.getElementById("Next").style.display = "inline"
     document.getElementById("Next3").style.display = "none";
     document.getElementById("Next2").style.display = "none";
     document.getElementById("scorer").style.display = "none";
     document.getElementById("highScoresList").style.display = "none";
-    document.getElementById("continue").style.display = "none"
-    document.getElementById("playAgain").style.display = "none"
+    document.getElementById("continue").style.display = "none";
+    document.getElementById("playAgain").style.display = "none";
+    document.getElementById("score").style.display = "none"
+    document.getElementById("health").style.display = "none"
+    document.getElementById("time").style.display = "none" ;
+    document.getElementById("highScores").style.display = "none"
+    ctx.clearRect(0,0,canvas.width,canvas.height)
     ctx.beginPath()
     ctx.font = "50px Arial"
     ctx.textAlign = "center"
@@ -227,6 +257,18 @@ function next3() {
     ctx.fillText(`or you will get snowball effect`, canvas.width / 2, canvas.height - 300)
 }
 
+// function loudWarning() {
+//     document.getElementById("Next4").style.display = "none";
+//     document.getElementById("Start").style.display = "inline";
+//     ctx.clearRect(0,0,canvas.width,canvas.height)
+//     ctx.font = "60px Arial"
+//     ctx.fillStyle = "#FF0000"
+//     ctx.textAlign = "center"
+//     ctx.fillText(`WARNING!!!!`,canvas.width/2,250)
+//     ctx.fillText(`The game is loud especially the rats`,canvas.width/2,350)
+//     ctx.fillText(`Lower the volume to ease the sounds`,canvas.width/2,450)
+// }
+
 function GameOver() {
     window.cancelAnimationFrame(reqAnimate)
     players.dieSound.play()
@@ -248,6 +290,7 @@ function GameOver() {
     showHighScores(score)
     document.getElementById("scorer").style.display = "inline";
     document.getElementById("highScoresList").style.display = "inline";
+    document.getElementById("highScores").style.display = "inline";
     document.getElementById("playAgain").style.display = "inline";
     document.getElementById("scorer").style.display = "inline";
 }
@@ -273,22 +316,23 @@ function Victory() {
     showHighScores(score)
     document.getElementById("scorer").style.display = "inline";
     document.getElementById("highScoresList").style.display = "inline"
+    document.getElementById("highScores").style.display = "inline";
     document.getElementById("continue").style.display = "inline"
     document.getElementById("scorer").style.display = "inline";
 }
 
-function timerDecrease() {
-    timer--
-    return timer
-}
+//
 
+//Gameplay continue and Reset
 function reset() {
     enemies = []
     timer = 10
     players.x = 500
     players.y = 500
     document.getElementById("continue").style.display = "none"
-    animation(active)
+    document.getElementById("highScoresList").style.display = "none";
+    document.getElementById("highScores").style.display = "none";
+    animation(main)
 }
 
 function playAgain() {
@@ -300,8 +344,9 @@ function playAgain() {
     players.x = 500
     players.y = 500
     document.getElementById("playAgain").style.display = "none"
-    animation(active)
+    welcome()
 }
+//
 
 welcome()
 

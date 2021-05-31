@@ -5,7 +5,7 @@
     <title>Game</title>
 </head>
 <body style="background: black; color: red">
-<button type="button" id="Start" onclick="animation(active)">Start!</button>
+<button type="button" id="Start" onclick="starter(main)">Start!</button>
 <button type="button" id="Next" onclick="next1()">Next</button>
 <button type="button" id="Next2" onclick="next2()">Next</button>
 <button type="button" id="Next3" onclick="next3()">Next</button>
@@ -17,13 +17,13 @@
     <canvas id="gameCanvas" width="1000" height="700" style="border: solid red; background: #ffc51f "></canvas>
 </div>
 <div style="float: left">
-    <h1 id="time"></h1>
-<h1 id="score"></h1>
-<h1 id="health"></h1>
+    <h1 id="time"></h1><br>
+    <h1 id="score"></h1><br>
+    <h1 id="health"></h1><br>
 </div>
 <div style="float: right">
-<h2 id="highScoresList" style="font:30px Arial ">HighScores</h2>
-<ol id="highScores" style="font:30px Arial "></ol>
+    <h2 id="highScoresList" style="font:30px Arial ">HighScores</h2><br>
+    <ol id="highScores" style="font:30px Arial "></ol>
 </div>
 <script src="JS/Enemy.js"></script>
 <script src="JS/Player.js"></script>

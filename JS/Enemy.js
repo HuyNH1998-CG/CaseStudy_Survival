@@ -11,7 +11,7 @@ class enemy {
         this.img.src = "./Images/Rat.png"
         this.angle = 0
         this.sound = new Audio("./Sound/ratdie.mp3")
-
+        this.sound.volume = 0.5
 
     }
 

@@ -13,6 +13,7 @@ class weapon {
         this.x = x + this.angle.x * 40;
         this.y = y + this.angle.y * 40;
         this.sound = new Audio("./Sound/BatHit.wav")
+        this.sound.volume = 0.2
     }
 
     boundary(player) {
