@@ -5,6 +5,7 @@ let players = new Player(500, 350)
 let weapons = []
 let enemies = []
 let keyMap = []
+let medicines = []
 let fps = 60;
 let frame = 0;
 let interval, start, now, then, elapsed, update, reqAnimate
@@ -17,6 +18,7 @@ let timer = 60
 let winSound = new Audio("./Sound/Won.mp3")
 let spawner;
 let timeCounter;
+let medicineSpawn;
 //
 
 //Leaderboard
@@ -106,9 +108,10 @@ function loop() {
     }
 }
 
-function animation(loop) {
+function animationStart(loop) {
     spawner = setInterval(spawn, 1000)
     timeCounter = setInterval(timerDecrease, 1000)
+    medicineSpawn = setInterval(giveMedicine, 10000)
     update = loop;
     starter()
 }
@@ -117,6 +120,10 @@ function spawn() {
     enemies.push(new enemy(players))
     enemies.push(new enemy(players))
     enemies.push(new enemy(players))
+}
+
+function giveMedicine(){
+    medicines.push(new medicine(ctx))
 }
 
 function timerDecrease() {
@@ -166,6 +173,10 @@ function main() {
             enemy.update(players, enemies)
             enemy.render(ctx)
         })
+        medicines.forEach(medicine => {
+            medicine.update(players)
+            medicine.render(ctx)
+        })
 
         players.update(enemies)
         players.render(ctx)
@@ -176,10 +187,12 @@ function main() {
     if (players.isAlive() === false) {
         clearInterval(spawner)
         clearInterval(timeCounter)
+        clearInterval(medicineSpawn)
         GameOver()
     } else if (timer === 0) {
         clearInterval(spawner)
         clearInterval(timeCounter)
+        clearInterval(medicineSpawn)
         Victory()
     }
 }
@@ -332,7 +345,7 @@ function reset() {
     document.getElementById("continue").style.display = "none"
     document.getElementById("highScoresList").style.display = "none";
     document.getElementById("highScores").style.display = "none";
-    animation(main)
+    animationStart(main)
 }
 
 function playAgain() {

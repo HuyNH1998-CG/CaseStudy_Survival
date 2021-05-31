@@ -39,7 +39,6 @@ class weapon {
                 if (dist <= enemy.radius/2) {
                     weapons = weapons.splice(weapons.indexOf(this), 1)
                     enemy.health--;
-
                     return
                 }
             }
@@ -49,7 +48,6 @@ class weapon {
     }
 
     render(ctx) {
-
         ctx.beginPath()
         ctx.fillStyle = "black"
         ctx.drawImage(this.img,this.x-20,this.y-20,40,40)
