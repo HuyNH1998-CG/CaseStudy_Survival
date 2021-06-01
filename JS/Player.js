@@ -17,9 +17,7 @@ class Player {
     }
 
     isAlive() {
-        if (this.health > 0) {
-            this.alive = true
-        } else {
+        if (this.health < 0) {
             this.alive = false
         }
         return this.alive

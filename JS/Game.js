@@ -165,10 +165,10 @@ function main() {
     document.getElementById("Hard").style.display = "none";
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.fillStyle = "#ac561c"
-    ctx.rect(0, 0, canvas.width, canvas.height)
-    ctx.fill()
-    ctx.closePath()
+    // ctx.fillStyle = "#ac561c"
+    // ctx.rect(0, 0, canvas.width, canvas.height)
+    // // ctx.fill()
+    // ctx.closePath()
 
     if (players.isAlive() === true) {
         weapons.forEach(weapon => {
@@ -234,6 +234,7 @@ function welcome() {
     document.getElementById("Hard").style.display = "none";
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
+    drawMessageBackGround()
     ctx.fillStyle = "#000000"
     ctx.font = "50px Arial"
     ctx.textAlign = "center"
@@ -246,6 +247,8 @@ function next1() {
     document.getElementById("Next2").style.display = "inline"
     ctx.beginPath()
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawMessageBackGround()
+    ctx.fillStyle = "#000000"
     ctx.font = "40px Arial"
     ctx.textAlign = "center"
     ctx.fillText(`You are a peasant who do no harm to others.`, canvas.width / 2, 100)
@@ -259,7 +262,9 @@ function next2() {
     document.getElementById("Next2").style.display = "none"
     document.getElementById("Next3").style.display = "inline";
     ctx.beginPath()
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMessageBackGround()
+    ctx.fillStyle = "#000000"
     ctx.font = "40px Arial"
     ctx.textAlign = "center"
     ctx.fillText(`He promised to let you out if he is amused.`, canvas.width / 2, 100)
@@ -277,6 +282,8 @@ function next3() {
     document.getElementById("Normal").style.display = "inline";
     document.getElementById("Hard").style.display = "inline";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMessageBackGround()
+    ctx.fillStyle = "#000000"
     ctx.beginPath()
     ctx.font = "60px Arial"
     ctx.fillStyle = "#FF0000"
@@ -347,6 +354,12 @@ function Victory() {
     document.getElementById("highScores").style.display = "inline";
     document.getElementById("continue").style.display = "inline"
     document.getElementById("scorer").style.display = "inline";
+}
+
+function drawMessageBackGround(){
+    ctx.fillStyle = '#fff168'
+    ctx.rect(0, 0, canvas.width, canvas.height)
+    ctx.fill()
 }
 
 //
