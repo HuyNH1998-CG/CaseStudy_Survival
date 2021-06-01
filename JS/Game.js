@@ -234,6 +234,7 @@ function welcome() {
     document.getElementById("Hard").style.display = "none";
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
+    ctx.fillStyle = "#000000"
     ctx.font = "50px Arial"
     ctx.textAlign = "center"
     ctx.fillText("Welcome to the rat cave", canvas.width / 2, canvas.height / 4)
