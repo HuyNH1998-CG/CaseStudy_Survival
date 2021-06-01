@@ -1,4 +1,4 @@
-//Variables
+//=================Variables=================
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d")
 let players = new Player(500, 350)
@@ -19,9 +19,9 @@ let winSound = new Audio("./Sound/Won.mp3")
 let spawner;
 let timeCounter;
 let medicineSpawn;
-//
+//==============================================
 
-//Leaderboard
+//====================Leaderboard=============
 function checkHighScore(scores) {
     let highScores = JSON.parse(localStorage.getItem(HighScores)) ?? [];
     let lowestScore = highScores[numberOfHighScores - 1]?.score ?? 0;
@@ -54,24 +54,24 @@ function showHighScores() {
         .join('')
 }
 
-//
+//============================================
 
-//Randomizer
+//===============Randomizer===================
 function random(min, max) {
     return (Math.random() * (max - min)) + min
 }
 
-//
+//===========================================
 
-//Collision Check (Circle Type)
+//===Collision Check (Circle Type)=====
 const distance = (x1, y1, x2, y2) => {
     let xx = Math.pow((x2 - x1), 2),
         yy = Math.pow((y2 - y1), 2);
     return Math.sqrt(xx + yy)
 }
-//
+//========================================
 
-//Key Listener
+//==============Key Listener=============
 window.addEventListener("keydown", event => {
     let {key} = event
     if (!keyMap.includes(key)) {
@@ -89,9 +89,9 @@ window.addEventListener("keyup", event => {
 let keyPressed = function (key) {
     return keyMap.includes(key)
 }
-//
+//==========================
 
-//Loop
+//===========Loop===========
 function starter() {
     interval = 1000 / fps
     then = Date.now();
@@ -134,10 +134,10 @@ function timerDecrease() {
     return timer
 }
 
-//
+//=================================
 
 
-//Pointer relate
+//===========Pointer relate=========
 function pointer(canvas, event) {
     let rect = canvas.getBoundingClientRect()
     let x = event.clientX - rect.left
@@ -152,9 +152,9 @@ document.body.addEventListener("mousemove", (event) => {
     let mouse = pointer(canvas, event)
     players.rotate(mouse)
 })
-//
+//=================================
 
-//Gameplay Main
+//=========Gameplay Main===========
 function main() {
     document.getElementById("Start").style.display = "none"
     document.getElementById("continue").style.display = "none"
@@ -165,11 +165,6 @@ function main() {
     document.getElementById("Hard").style.display = "none";
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // ctx.fillStyle = "#ac561c"
-    // ctx.rect(0, 0, canvas.width, canvas.height)
-    // // ctx.fill()
-    // ctx.closePath()
-
     if (players.isAlive() === true) {
         weapons.forEach(weapon => {
             weapon.render(ctx)
@@ -213,9 +208,9 @@ function display() {
     document.getElementById("time").style.display = "inline"
 }
 
-//
+//=============================
 
-//Messages and Story
+//====Messages and Story========
 function welcome() {
     document.getElementById("Start").style.display = "none";
     document.getElementById("Next").style.display = "inline";
@@ -292,18 +287,6 @@ function next3() {
     ctx.fillText(`or you will get snowball effect`, canvas.width / 2, canvas.height - 300)
 }
 
-// function loudWarning() {
-//     document.getElementById("Next4").style.display = "none";
-//     document.getElementById("Start").style.display = "inline";
-//     ctx.clearRect(0,0,canvas.width,canvas.height)
-//     ctx.font = "60px Arial"
-//     ctx.fillStyle = "#FF0000"
-//     ctx.textAlign = "center"
-//     ctx.fillText(`WARNING!!!!`,canvas.width/2,250)
-//     ctx.fillText(`The game is loud especially the rats`,canvas.width/2,350)
-//     ctx.fillText(`Lower the volume to ease the sounds`,canvas.width/2,450)
-// }
-
 function GameOver() {
     window.cancelAnimationFrame(reqAnimate)
     players.dieSound.play()
@@ -362,7 +345,7 @@ function drawMessageBackGround(){
     ctx.fill()
 }
 
-//
+//=========================
 
 //Gameplay continue and Reset
 function reset() {
@@ -388,9 +371,9 @@ function playAgain() {
     welcome()
 }
 
-//
+//=============================
 
-//Difficulty
+//========Difficulty=========
 function easyMode() {
     players.health = 100;
 }
@@ -402,7 +385,8 @@ function normalMode(){
 function hardMode() {
     players.health = 25;
 }
-//
+//==========================
+
 welcome()
 
 
