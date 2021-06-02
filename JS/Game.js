@@ -19,6 +19,7 @@ let winSound = new Audio("./Sound/Won.mp3")
 let spawner;
 let timeCounter;
 let medicineSpawn;
+let limit = 5
 //==============================================
 
 //====================Leaderboard=============
@@ -120,9 +121,26 @@ function animationStart(loop) {
 }
 
 function spawn() {
-    enemies.push(new enemy(players))
-    enemies.push(new enemy(players))
-    enemies.push(new enemy(players))
+    if (enemies.length < limit && score < 10) {
+        enemies.push(new enemy(players))
+    } else if (enemies.length < limit && score > 30) {
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+    }else if (enemies.length < limit && score > 20) {
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+    } else if (enemies.length < limit && score > 10) {
+        enemies.push(new enemy(players))
+        enemies.push(new enemy(players))
+    }
+    else if (enemies.length === limit) {
+        enemies.splice(limit, 1)
+    }
+    // enemies.push(new enemy(players))
+    // enemies.push(new enemy(players))
 }
 
 function giveMedicine() {
@@ -206,6 +224,10 @@ function display() {
     document.getElementById("health").style.display = "inline"
     document.getElementById("time").innerHTML = `Time left: ${timer}`
     document.getElementById("time").style.display = "inline"
+    document.getElementById("ratPopLimit").style.display = "inline"
+    document.getElementById("ratPopLimit").innerHTML = `Rat max: ${limit}`
+    document.getElementById("ratPop").style.display = "inline"
+    document.getElementById("ratPop").innerHTML = `Rat now: ${enemies.length}`
 }
 
 //=============================
@@ -227,6 +249,8 @@ function welcome() {
     document.getElementById("Easy").style.display = "none";
     document.getElementById("Normal").style.display = "none";
     document.getElementById("Hard").style.display = "none";
+    document.getElementById("ratPop").style.display = "none"
+    document.getElementById("ratPopLimit").style.display = "none"
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     drawMessageBackGround()
@@ -339,7 +363,7 @@ function Victory() {
     document.getElementById("scorer").style.display = "inline";
 }
 
-function drawMessageBackGround(){
+function drawMessageBackGround() {
     ctx.fillStyle = '#fff168'
     ctx.rect(0, 0, canvas.width, canvas.height)
     ctx.fill()
@@ -378,13 +402,14 @@ function easyMode() {
     players.health = 100;
 }
 
-function normalMode(){
+function normalMode() {
     players.health = 50;
 }
 
 function hardMode() {
     players.health = 25;
 }
+
 //==========================
 
 welcome()

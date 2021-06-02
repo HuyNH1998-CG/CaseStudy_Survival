@@ -27,6 +27,9 @@ class enemy {
             enemies.splice(enemies.indexOf(this), 1)
             score++
             this.sound.play()
+            if(score % 5 === 0 ){
+                limit++
+            }
             return
         }
         this.rotate(player)
